@@ -9,16 +9,20 @@ public class FacultyService {
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
-    public Faculty getFacultyById(Long facultyId) {
+    public Faculty getById(Long facultyId) {
         return facultyRepository.findById(facultyId).orElse(null);
     }
-    public Faculty updateFaculty(Faculty faculty) {
+    public Faculty update(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
-    public void deleteFaculty(Long facultyId) {
+    public void delete(Long facultyId) {
         facultyRepository.deleteById(facultyId);
     }
-    public List<Faculty> facultiesOfColor(String color) {
-        return facultyRepository.findAllByColor(color);
+
+    public List<Faculty> getByNameOrColor(String name, String color) {
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
+    }
+    public List<Faculty> getAll() {
+        return facultyRepository.findAll();
     }
 }

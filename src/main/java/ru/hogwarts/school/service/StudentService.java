@@ -5,21 +5,28 @@ import ru.hogwarts.school.repository.StudentRepository;
 import java.util.List;
 @Service
 public class StudentService {
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
-    public Student getStudentById(Long studentId) {
+    public Student getById(Long studentId) {
         return studentRepository.findById(studentId).orElse(null);
     }
-    public Student updateStudent(Student student) {
+    public Student update(Student student) {
         return studentRepository.save(student);
     }
-    public void deleteStudent(Long studentId) {
-        studentRepository.deleteById(studentId);
+    public void delete(Long studentId) {
+        if (getById(studentId) != null) {
+            studentRepository.deleteById(studentId);
+        }
     }
-    public List<Student> studentsOfAge(int age) {
+    public List<Student> getByAge(int age) {
         return studentRepository.findAllByAge(age);
     }
-
+    public List<Student> getByAgeBetween(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
+    }
+    public List<Student> getAll() {
+        return studentRepository.findAll();
+    }
 }
