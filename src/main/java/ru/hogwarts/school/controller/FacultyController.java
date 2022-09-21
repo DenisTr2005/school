@@ -69,10 +69,9 @@ public class FacultyController {
         if(students == null) {
             return ResponseEntity.notFound().build();
         }
-        ResponseEntity<Collection<Student>> ok = ResponseEntity.ok(
+        return ResponseEntity.ok(
                 students.stream().
                 sorted(Comparator.comparing(Student::getId)).
                 toList());
-        return ok;
     }
 }
