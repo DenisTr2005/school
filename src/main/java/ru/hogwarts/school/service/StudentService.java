@@ -29,4 +29,14 @@ public class StudentService {
     public List<Student> getAll() {
         return studentRepository.findAll();
     }
+    public Long getCountAllStudents() {
+        return studentRepository.countAllStudents();
+    }
+    public int avgAgeOfStudents() {
+        return studentRepository.avgAgeOfStudents();
+    }
+
+    public List<Student> getLast5Students() {
+        return studentRepository.getLast5Students();
+    }
 }
