@@ -15,6 +15,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.net.URI;
 
@@ -26,10 +27,12 @@ class SchoolApplicationTests {
     private TestRestTemplate testRestTemplate;
     @Autowired
     private StudentController studentController;
+    @Autowired
+    private StudentRepository studentRepository;
     final Student student = new Student();
     @BeforeEach
     private void settings() {
-        student.setId(10L);
+        student.setId(studentRepository.getLastStudent().getId());
         student.setName("Denis");
         student.setAge(75);
     }
@@ -39,16 +42,17 @@ class SchoolApplicationTests {
         String url = "http://localhost:" + port + "/student";
         assertThat(testRestTemplate.postForObject(url, student, Student.class))
                 .isNotNull();
+
     }
     @Test
     void getStudentTest() {
         String url = "http://localhost:" + port + "/student/{studentId}";
         assertThat(testRestTemplate.getForObject(url,Student.class, student.getId()))
                 .isEqualTo(student);
+
     }
     @Test
     void updateStudentTest() {
-        student.setName("DenisUp");
         String url = "http://localhost:" + port + "/student";
         assertThat(testRestTemplate.postForObject(url, student, Student.class))
                 .isNotNull();

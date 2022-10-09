@@ -16,4 +16,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     int avgAgeOfStudents();
     @Query(value = "SELECT * FROM student ORDER BY id DESC LIMIT 5", nativeQuery = true)
     List<Student> getLast5Students();
+
+    @Query(value = "SELECT * FROM student ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    Student getLastStudent();
 }
