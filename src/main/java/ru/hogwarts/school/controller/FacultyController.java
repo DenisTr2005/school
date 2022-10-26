@@ -74,4 +74,8 @@ public class FacultyController {
                 sorted(Comparator.comparing(Student::getId)).
                 toList());
     }
+    @GetMapping("/longestName")
+    public ResponseEntity<String> getLongestNameOfFaculty() {
+        return ResponseEntity.ok(facultyService.longestNameOfFaculty());
+    }
 }

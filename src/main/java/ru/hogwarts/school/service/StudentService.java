@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -46,13 +47,26 @@ public class StudentService {
         logger.info("Was invoked method for get all students");
         return studentRepository.findAll();
     }
+    public List<String> getAllNameStartOnD() {
+        logger.info("Was invoked method for get all students, the name of which starts on D");
+        return studentRepository.findAll()
+                .stream()
+                .map(s->s.getName().toUpperCase())
+                .filter(n->n.startsWith("D"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
     public Long getCountAllStudents() {
         logger.info("Was invoked method for get count of all students");
         return studentRepository.countAllStudents();
     }
     public int avgAgeOfStudents() {
         logger.info("Was invoked method for get average age of all students");
-        return studentRepository.avgAgeOfStudents();
+//        return studentRepository.avgAgeOfStudents();
+        return (int) studentRepository.findAll()
+                .stream()
+                .mapToInt(s->s.getAge())
+                .average().orElse(0);
     }
 
     public List<Student> getLast5Students() {

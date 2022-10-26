@@ -64,6 +64,14 @@ public class StudentController {
         }
         return ResponseEntity.ok(studentList);
     }
+    @GetMapping("/D")
+    public ResponseEntity<List<String>> getAllNameStartOnDStudents() {
+        List<String> studentNamesList = studentService.getAllNameStartOnD();
+        if(studentNamesList == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studentNamesList);
+    }
     @GetMapping("{studentId}/faculty")
     public ResponseEntity<Faculty> getFacultyOfStudent(@PathVariable Long studentId) {
         Student student = studentService.getById(studentId);
