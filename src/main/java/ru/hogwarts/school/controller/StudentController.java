@@ -100,4 +100,12 @@ public class StudentController {
         }
         return ResponseEntity.ok(studentList);
     }
+    @GetMapping("/printAll")
+    public void printAll() {
+        studentService.printAll();
+    }
+    @GetMapping("/printAllSynchro")
+    public void printAllSynchro() {
+        studentService.printAllSynchro();
+    }
 }
